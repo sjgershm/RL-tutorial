@@ -9,8 +9,8 @@ function model = TD(X,r,param)
     %       timepoints, D is the number of features.
     %   r - [N x 1] vector of rewards
     %   param (optional) - parameter structure with the following fields:
-    %                       .alpha - learning rate (default: 0.3)
-    %                       .g - discount factor (default: 0.98)
+    %                       .alpha - learning rate (default: 0.17)
+    %                       .g - discount factor (default: 0.9)
     %
     % OUTPUTS:
     %   model - [1 x N] structure with the following fields for each timepoint:
@@ -27,7 +27,7 @@ function model = TD(X,r,param)
     X = [X; zeros(1,D)];    % add buffer at end
     
     % parameters
-    if nargin < 3; param = struct('alpha',0.3,'g',0.98); end
+    if nargin < 3 || isempty(param); param = struct('alpha',0.17,'g',0.9); end
     alpha = param.alpha;    % learning rate
     g = param.g;            % discount factor
     
@@ -38,7 +38,7 @@ function model = TD(X,r,param)
         V = X(n,:)*w;               % value estimate
         rhat = h*w;                 % reward prediction
         dt = r(n) - rhat;           % prediction error
-        w = w + alpha*dt;           % weight update
+        w = w + alpha*dt*h';         % weight update
         
         % store results
         model(n) = struct('w',w,'dt',dt,'rhat',rhat,'V',V);

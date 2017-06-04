@@ -29,7 +29,7 @@ function model = KRW(X,r,param)
     X = [X; zeros(1,D)];    % add buffer at end
     
     % parameters
-    if nargin < 3; param = struct('c',1,'s',1,'q',0.01); end
+    if nargin < 3 || isempty(param); param = struct('c',1,'s',1,'q',0.01); end
     C = param.c*eye(D); % prior variance
     s = param.s;        % observation noise variance
     Q = param.q*eye(D); % transition noise variance

@@ -25,15 +25,15 @@ function model = RW(X,r,param)
     w = zeros(D,1);         % weights
     
     % parameters
-    if nargin < 3; param = struct('alpha',0.3); end
+    if nargin < 3 || isempty(param); param = struct('alpha',0.3); end
     alpha = param.alpha;    % learning rate
     
     % run Kalman filter
     for n = 1:N
         
-        rhat = h*X(n,:);            % reward prediction
+        rhat = X(n,:)*w;            % reward prediction
         dt = r(n) - rhat;           % prediction error
-        w = w + alpha*dt;           % weight update
+        w = w + alpha*dt*X(n,:)';   % weight update
         
         % store results
         model(n) = struct('w',w,'dt',dt,'rhat',rhat);

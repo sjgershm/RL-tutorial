@@ -12,7 +12,7 @@ function model = KTD(X,r,param)
     %                       .c - prior variance (default: 1)
     %                       .s - observation noise variance (default: 1)
     %                       .q - transition noise variance (default: 0.01)
-    %                       .g - discount factor (default: 0.98)
+    %                       .g - discount factor (default: 0.9)
     %
     % OUTPUTS:
     %   model - [1 x N] structure with the following fields for each timepoint:
@@ -31,7 +31,7 @@ function model = KTD(X,r,param)
     X = [X; zeros(1,D)];    % add buffer at end
     
     % parameters
-    if nargin < 3; param = struct('c',1,'s',1,'q',0.01,'g',0.98); end
+    if nargin < 3 || isempty(param); param = struct('c',1,'s',1,'q',0.005,'g',0.9); end
     C = param.c*eye(D); % prior variance
     s = param.s;        % observation noise variance
     Q = param.q*eye(D); % transition noise variance
