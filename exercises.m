@@ -1,8 +1,8 @@
 function exercises(exercise)
     
-    % Simulate models
+    % Exercise solutions
     %
-    % USAGE: simulate_models(exercise)
+    % USAGE: exercises(exercise)
     %
     % INPUTS:
     %   sim - which simulation to run:
