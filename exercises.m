@@ -55,29 +55,6 @@ function exercises(exercise)
             ylabel('Latent inhibition effect (nopre-pre)','FontSize',25);
             set(gca,'FontSize',25,'XTickLabel',{'No Delay' 'Delay'});
             
-        case 'forward blocking'
-            
-            % construct stimuli
-            nTrials = 10;       % number of trials
-            X = [repmat([1 0],nTrials,1); repmat([1 1],nTrials,1)];
-            r = ones(nTrials*2,1);
-            
-            % run models
-            model_RW = RW(X,r);
-            model_KRW = KRW(X,r);
-            
-            % plot weights
-            for n=1:length(model_RW)
-                w_RW(n,:) = model_RW(n).w;
-                w_KRW(n,:) = model_KRW(n).w;
-            end
-            plot(w_RW,'LineWidth',3); hold on;
-            plot(w_KRW,'--','LineWidth',3);
-            xlabel('Trial','FontSize',25);
-            ylabel('Weight','FontSize',25);
-            set(gca,'FontSize',25);
-            legend({'A (RW)' 'B (RW)' 'A (KRW)' 'B (KRW)'},'FontSize',25);
-            
         case 'delay conditioning'
             
             % construct stimuli
