@@ -40,7 +40,7 @@ function model = KTD(X,r,param)
     % run Kalman filter
     for n = 1:N
         
-        h = X(n,:) - g*X(n+1,:);    % temporal difference features
+        h = g*X(n+1,:) - X(n,:);    % temporal difference features
         V = X(n,:)*w;               % value estimate
         rhat = h*w;                 % reward prediction
         dt = r(n) - rhat;           % prediction error
